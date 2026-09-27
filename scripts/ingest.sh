@@ -5,7 +5,7 @@ set -euo pipefail
 SRC="$1"; B=$(basename "${SRC%.*}"); A=01_analysis; mkdir -p $A/frames $A/proxies $A/contact_sheets 02_audio
 shasum -a 256 "$SRC" > "$A/$B.sha256"
 ffprobe -v error -show_format -show_streams -of json "$SRC" > "$A/$B.probe.json"
-ffprobe -v error -select_streams v:0 -show_entries frame=pts_time -of csv=p=0 "$SRC" | head -2000 > "$A/$B.pts_head.csv"   # frame pacing check
+ffprobe -v error -select_streams v:0 -read_intervals "%+60" -show_entries frame=pts_time -of csv=p=0 "$SRC" > "$A/$B.pts_head.csv"   # frame pacing check (first 60 s)
 # 480p proxy for fast scrubbing
 ffmpeg -y -v error -i "$SRC" -vf "scale=-2:480" -c:v libx264 -preset veryfast -crf 24 -an "$A/proxies/$B.proxy480.mp4"
 # frame index: 1 frame / 2s

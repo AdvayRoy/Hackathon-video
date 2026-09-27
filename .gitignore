@@ -18,3 +18,8 @@
 *.wav
 *.mp3
 .DS_Store
+03_assets/fonts/geist.tgz
+03_assets/fonts/package/
+**/snapshots/
+**/renders/
+01_analysis/*.scdet.txt
