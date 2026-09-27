@@ -1,0 +1,20 @@
+# media & bulk generated output (never commit raw/generated media)
+00_raw/
+01_analysis/frames/
+01_analysis/proxies/
+01_analysis/contact_sheets/*.png
+02_audio/*.wav
+02_audio/*.mp3
+03_assets/generated/
+05_renders/
+06_tmp/
+**/node_modules/
+**/out/
+**/.hyperframes/
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.wav
+*.mp3
+.DS_Store
