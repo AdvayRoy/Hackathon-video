@@ -49,3 +49,16 @@ scripts/ffmpeg_pipeline_test.sh → re-verify encode leg
 ## Log
 - 2026-09-27 hf_smoke render: 1920x1080 @30fps, 120 frames, 12.9 s wall (4 workers, ~9 fps render throughput → budget ~3.5 s render per 1 s of 30fps output; 60fps doubles it). Output H.264 4.1 MB. Set `fps`/quality in hyperframes.json or `render --fps 60` for final.
 - ffmpeg_pipeline_test: encode leg OK (h264/prores/hevc-vt/9x16/minterpolate); zoompan flagged unreliable.
+
+---
+
+## Phase 1–3 (post-brief): source map → creative direction → composition → master
+
+- Brief read in full: `NEURASCOPE_COMPLETE_PRODUCT_BRIEF.md` (canonical).
+- Source map: `01_analysis/SOURCE_MAP.md` (every range of the 145.8 s recording, incl. artifacts to avoid: record widget <12.4 s, mic popup 70–72.3 s, tab overview 100.4–102 s, toolbar >144 s).
+- Creative direction: `CREATIVE_DIRECTION.md` (78 s, 16:9, interface-as-hero, brief-verbatim copy, no VO).
+- Composition: `04_hyperframes/neurascope-film/index.html` — 14 timed `<video>` shots of the untouched raw recording (`assets/raw.mp4`, copy of `00_raw`), GSAP camera moves on untimed `.cam` wrappers, Geist Sans/Mono (bundled woff2 + license), 15 overlay scenes, dip-to-ink transitions, one paused root timeline. `npm run check` → 0 errors.
+- Sound: original deterministic score `scripts/score.mjs` → `02_audio/score.wav` (78 s, −18.3 dB mean, −3.1 dB peak, seed 20260926); SFX from the media-use bundled Pixabay set (click-soft / whoosh-short / ping / impact-bass-1).
+- Smoke test moved to `04_hyperframes/neurascope-film/smoke/`.
+- Render: `npm run render` → `05_renders/final/NEURASCOPE_launch_1080p.mp4` (delivery quality, PNG frame extraction for UI fidelity).
+- Regenerate everything: `node scripts/score.mjs | ffmpeg -f f32le -ar 48000 -ac 2 -i - 02_audio/score.wav && cp 02_audio/score.wav 04_hyperframes/neurascope-film/assets/ && cp 00_raw/neurascope_raw.mp4 04_hyperframes/neurascope-film/assets/raw.mp4 && (cd 04_hyperframes/neurascope-film && npm run check && npm run render)`.
